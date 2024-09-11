@@ -1,0 +1,26 @@
+name: "Instalar Dependencias"
+description: "Una acción reutilizable para instalar dependencias"
+inputs:
+  node-version:
+    description: "Versión de Node.js para usar"
+    required: false
+    default: "14.x"
+outputs:
+  success-message:
+    description: "Mensaje de éxito"
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Instalar dependencias
+      run: npm install
+
+    - name: Mensaje de éxito
+      run: echo "Dependencias instaladas exitosamente"
